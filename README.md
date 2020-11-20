@@ -44,3 +44,18 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+## Requirements
+
+### UX
+User should be able to
+- upload multiple files simulataneously
+- drag and drop those files straight in the browser
+- see the upload progress
+- cancel uploads
+- see the file size / upload speed
+
+### DX
+- The file upload component should take an array of allowed file types and validate user input
+- The upload component should be backend agnostic, i.e. should not care where files are stored (e.g. transloadit / S3 / custom backend). But it should specify a Typescript interface for the Upload Service.

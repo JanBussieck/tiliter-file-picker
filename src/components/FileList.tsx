@@ -7,7 +7,6 @@ import type File from '../types/FileInterface';
 const useStyles = makeStyles(theme => ({
   container: {
     width: '100%',
-    maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
 }));

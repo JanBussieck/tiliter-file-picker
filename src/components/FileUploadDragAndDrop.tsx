@@ -1,4 +1,5 @@
 import React, {useRef, useState} from 'react';
+import get from 'lodash/get';
 import {makeStyles} from '@material-ui/core/styles';
 import {colors} from '@material-ui/core';
 import BackupOutlined from '@material-ui/icons/BackupOutlined';
@@ -35,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 
 const FileUploadContainer: React.FC = () => {
   const classes = useStyles();
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragOver, setIsDragover] = useState(false);
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
@@ -69,14 +70,23 @@ const FileUploadContainer: React.FC = () => {
     event.preventDefault();
 
     setIsDragover(false);
+
+    const files = get(event, 'dataTransfer.files');
+    // checkAndSelectFile(files);
     console.log('handle drag drop');
   };
 
   const handleDropAreaClick = (event: React.MouseEvent) => {
+    // Forward the click to the file input to open a file selection dialog
+    const fileInputElem = fileInputRef.current;
+    fileInputElem && fileInputElem.click();
     console.log('handle drop are click drop');
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.stopPropagation();
+    const files = get(fileInputRef.current, 'files');
+    // checkAndSelectFile(file);
     console.log('handle file input change');
   };
 
@@ -98,6 +108,7 @@ const FileUploadContainer: React.FC = () => {
       <input
         ref={fileInputRef}
         type="file"
+        multiple={true}
         name="file-upload-input"
         className={classes.fileInput}
         onChange={handleChange}

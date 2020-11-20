@@ -4,6 +4,8 @@ import {makeStyles} from '@material-ui/core/styles';
 import {colors} from '@material-ui/core';
 import BackupOutlined from '@material-ui/icons/BackupOutlined';
 
+import type File from '../types/FileInterface';
+
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
@@ -34,11 +36,38 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const FileUploadContainer: React.FC = () => {
+interface FileUploadDragAndDropProps {
+  maxSize?: number;
+  onAddFile: ({file}: {file: File}) => void;
+}
+
+const FileUploadDragAndDrop: React.FC<FileUploadDragAndDropProps> = ({
+  maxSize = 1024 * 1024 * 50, // default max 50MB
+  onAddFile,
+}) => {
   const classes = useStyles();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragOver, setIsDragover] = useState(false);
 
+  const isSizeAccepted = (file: File) => {
+    return file.size <= maxSize;
+  };
+
+  const checkAndSelectFiles = (files: File[] = []) => {
+    files.forEach(file => {
+      if (!isSizeAccepted(file)) {
+        /* eslint-disable no-alert */
+        window.alert(`File ${file.name} is too large`);
+        /* eslint-enable no-alert */
+        return;
+      }
+      try {
+        onAddFile({file});
+      } catch (err) {
+        // Nothing, restriction errors handled in Core
+      }
+    });
+  };
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
 
@@ -71,8 +100,8 @@ const FileUploadContainer: React.FC = () => {
 
     setIsDragover(false);
 
-    const files = get(event, 'dataTransfer.files');
-    // checkAndSelectFile(files);
+    const files: File[] = Array.from(get(event, 'dataTransfer.files') || []);
+    checkAndSelectFiles(files);
     console.log('handle drag drop');
   };
 
@@ -85,8 +114,8 @@ const FileUploadContainer: React.FC = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.stopPropagation();
-    const files = get(fileInputRef.current, 'files');
-    // checkAndSelectFile(file);
+    const files: File[] = Array.from(get(fileInputRef.current, 'files') || []);
+    checkAndSelectFiles(files);
     console.log('handle file input change');
   };
 
@@ -117,4 +146,4 @@ const FileUploadContainer: React.FC = () => {
   );
 };
 
-export default FileUploadContainer;
+export default FileUploadDragAndDrop;

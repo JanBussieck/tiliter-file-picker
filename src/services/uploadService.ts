@@ -1,24 +1,7 @@
-import type File from '../types/FileInterface';
-
-type Success = ({file}: {file: File}) => void;
-type Error = ({file, message}: {file: File, message: string}) => void;
-type Progress = (progress: number) => void;
-type Cancel = () => void;
-
-// For simplicity were are omitting error handling as well as pausing an resuming uploads
-export type FileUploader = ({
-  file,
-  success,
-  progress
-}: {
-  file: File,
-  success: Success,
-  progress: Progress
-}) => Cancel;
-
-
 // simulate file upload
-const upload: FileUploader = ({
+import FileUploaderInterface from '../types/FileUploaderInterface';
+
+const upload: FileUploaderInterface = ({
   file,
   success,
   progress,

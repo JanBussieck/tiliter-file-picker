@@ -66,7 +66,7 @@ const FileItem: React.FC<FileItemProps> = ({file}) => {
     // useEffect clean up function will
     // cancel upload if component is unmounted
     return cancel;
-  }, []);
+  }, [file]);
 
   const IconComponent = fetchIcon(file.type);
   return (

@@ -24,7 +24,7 @@ const upload: FileUploader = ({
   progress,
 }) => {
   const intervalSize = 100;
-  const stepSize = 1024;
+  const stepSize = 1024 * 10;
   let currentProgress = 0
   const timer = setInterval(() => {
     currentProgress += stepSize;

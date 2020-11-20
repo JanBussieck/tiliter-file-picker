@@ -5,15 +5,14 @@ type Error = ({file, message}: {file: File, message: string}) => void;
 type Progress = (progress: number) => void;
 type Cancel = () => void;
 
+// For simplicity were are omitting error handling as well as pausing an resuming uploads
 export type FileUploader = ({
   file,
   success,
-  error,
   progress
 }: {
   file: File,
   success: Success,
-  error: Error,
   progress: Progress
 }) => Cancel;
 
@@ -22,16 +21,15 @@ export type FileUploader = ({
 const upload: FileUploader = ({
   file,
   success,
-  error,
   progress,
 }) => {
   const intervalSize = 100;
-  const stepCount = file.size / 100;
+  const stepSize = 1024;
   let currentProgress = 0
   const timer = setInterval(() => {
-    currentProgress += 100;
+    currentProgress += stepSize;
 
-    progress((intervalSize / (file.size | intervalSize) * 100));
+    progress((currentProgress / (file.size | intervalSize) * 100));
     if (currentProgress > file.size) {
       clearInterval(timer);
       success({file});

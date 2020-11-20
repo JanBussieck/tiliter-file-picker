@@ -1,5 +1,6 @@
 import React, {useRef, useState} from 'react';
 import get from 'lodash/get';
+import classNames from 'classnames';
 import {makeStyles} from '@material-ui/core/styles';
 import {colors} from '@material-ui/core';
 import BackupOutlined from '@material-ui/icons/BackupOutlined';
@@ -30,6 +31,9 @@ const useStyles = makeStyles(theme => ({
   icon: {
     fontSize: '5rem',
     color: colors.blueGrey[500],
+  },
+  dragOver: {
+    color: theme.palette.primary.main,
   },
   fileInput: {
     visibility: 'hidden',
@@ -128,7 +132,12 @@ const FileUploadDragAndDrop: React.FC<FileUploadDragAndDropProps> = ({
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}>
-      <BackupOutlined fontSize="large" className={classes.icon} />
+      <BackupOutlined
+        fontSize="large"
+        className={classNames(classes.icon, {
+          [classes.dragOver]: isDragOver,
+        })}
+      />
       <div>
         {isDragOver
           ? 'Drop files to upload'

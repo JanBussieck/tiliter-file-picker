@@ -3,6 +3,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import {Typography, Paper, Grid} from '@material-ui/core';
 import { v4 as uuid } from 'uuid';
 import FileUploadDragAndDrop from './FileUploadDragAndDrop';
+import upload from '../services/uploadService';
 
 import type File from '../types/FileInterface';
 

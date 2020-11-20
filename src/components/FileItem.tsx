@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import {
   ListItem,
@@ -9,7 +9,7 @@ import {
   Fab,
   colors,
 } from '@material-ui/core';
-import {YouTube, Description, Image, Check} from '@material-ui/icons';
+import {YouTube, Description, Image, GetApp} from '@material-ui/icons';
 import humanizeFileSize from '../utils/humanizeFileSize';
 import upload from '../services/uploadService';
 
@@ -30,6 +30,7 @@ const useStyles = makeStyles(theme => ({
   successButton: {
     backgroundColor: colors.green[500],
     color: 'white',
+    minWidth: '40px',
   },
 }));
 
@@ -42,6 +43,12 @@ const FileItem: React.FC<FileItemProps> = ({file}) => {
   const classes = useStyles();
   const [completed, setCompleted] = React.useState(0);
   const [success, setSuccess] = React.useState(false);
+  const downloadRef = useRef<HTMLAnchorElement>(null);
+
+  const handleDownload = () => {
+    const downloadElem = downloadRef.current;
+    downloadElem && downloadElem.click();
+  };
 
   // start upload on component mount
   useEffect(() => {
@@ -52,7 +59,7 @@ const FileItem: React.FC<FileItemProps> = ({file}) => {
       },
       success: ({file}) => {
         setSuccess(true);
-        console.log('success');
+        handleDownload();
       },
     });
 
@@ -74,12 +81,13 @@ const FileItem: React.FC<FileItemProps> = ({file}) => {
         secondary={humanizeFileSize(file.size)}
       />
       {success ? (
-        <Fab size='small' className={classes.successButton}>
-          <Check />
+        <Fab onClick={handleDownload} size='small' className={classes.successButton}>
+          <GetApp />
         </Fab>
       ) : (
         <CircularProgress variant="static" color="primary" value={completed} />
       )}
+      <a href={window.URL.createObjectURL(file)} download={file.name} ref={downloadRef} />
     </ListItem>
   );
 };

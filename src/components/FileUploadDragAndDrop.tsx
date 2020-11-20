@@ -76,27 +76,22 @@ const FileUploadDragAndDrop: React.FC<FileUploadDragAndDropProps> = ({
     event.preventDefault();
 
     setIsDragover(true);
-    console.log('handle drag over');
   };
 
   const handleDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
 
     setIsDragover(true);
-    console.log('handle drag over');
   };
 
   const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
 
     setIsDragover(false);
-    console.log('handle drag over');
   };
 
   const handleDragEnd = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-
-    console.log('handle drag end');
   };
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
@@ -106,21 +101,18 @@ const FileUploadDragAndDrop: React.FC<FileUploadDragAndDropProps> = ({
 
     const files: File[] = Array.from(get(event, 'dataTransfer.files') || []);
     checkAndSelectFiles(files);
-    console.log('handle drag drop');
   };
 
   const handleDropAreaClick = (event: React.MouseEvent) => {
     // Forward the click to the file input to open a file selection dialog
     const fileInputElem = fileInputRef.current;
     fileInputElem && fileInputElem.click();
-    console.log('handle drop are click drop');
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.stopPropagation();
     const files: File[] = Array.from(get(fileInputRef.current, 'files') || []);
     checkAndSelectFiles(files);
-    console.log('handle file input change');
   };
 
   return (

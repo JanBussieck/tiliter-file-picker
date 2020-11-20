@@ -28,7 +28,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.container}>
-        <Container maxWidth="md">
+        <Container maxWidth="sm">
           <FileUploadContainer />
         </Container>
       </div>

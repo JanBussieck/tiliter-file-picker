@@ -6,8 +6,6 @@ import { v4 as uuid } from 'uuid';
 import FileUploadDragAndDrop from './FileUploadDragAndDrop';
 import FileList from './FileList';
 
-import type File from '../types/FileInterface';
-
 const useStyles = makeStyles(theme => ({
   container: {
     padding: theme.spacing(4),

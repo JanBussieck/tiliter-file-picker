@@ -11,9 +11,7 @@ import {
 } from '@material-ui/core';
 import {YouTube, Description, Image, GetApp} from '@material-ui/icons';
 import humanizeFileSize from '../utils/humanizeFileSize';
-import upload from '../services/uploadService';
-
-import type File from '../types/FileInterface';
+import upload from '../services/xhrUploadService';
 
 const fetchIcon = (fileType: string) => {
   if (fileType.match(/^image.*/)) {

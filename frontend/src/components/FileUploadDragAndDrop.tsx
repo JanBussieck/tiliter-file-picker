@@ -5,8 +5,6 @@ import {makeStyles} from '@material-ui/core/styles';
 import {colors} from '@material-ui/core';
 import BackupOutlined from '@material-ui/icons/BackupOutlined';
 
-import type File from '../types/FileInterface';
-
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',

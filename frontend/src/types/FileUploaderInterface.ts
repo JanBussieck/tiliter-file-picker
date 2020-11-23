@@ -1,5 +1,3 @@
-import type File from './FileInterface';
-
 type Success = ({file}: {file: File}) => void;
 type Progress = (progress: number) => void;
 type Cancel = () => void;

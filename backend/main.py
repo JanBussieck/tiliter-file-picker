@@ -1,6 +1,9 @@
 from flask import Flask
+from flask import render_template
 app = Flask(__name__)
 
-@app.route('/')
+@app.route("/")
 def index():
-    return 'I serve the react app'
+    return render_template("index.html", flask_token="Hello   world")
+
+app.run(debug=True)
